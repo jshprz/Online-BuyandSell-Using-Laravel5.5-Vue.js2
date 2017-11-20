@@ -6,7 +6,7 @@
                       <img class="uk-border-circle " width="40 " height="40 " :src="userimage">
                   </div>
                   <div class="uk-width-expand">
-                      <h3 class="uk-card-title uk-margin-remove-bottom ">{{contact}}</h3>'
+                      <h3 class="uk-card-title uk-margin-remove-bottom ">{{contact}}</h3>
                       <div class="uk-card-badge uk-label uk-margin-large-left uk-margin-large-bottom">Php. {{productprice}}</div>
                       <p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00 ">{{createdat}}</time></p>
                   </div>
@@ -42,4 +42,3 @@
 
     }
 </script>
-  

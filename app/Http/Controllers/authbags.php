@@ -7,6 +7,7 @@ use App\product;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use response;
+use Illuminate\Support\Facades\Auth;
 
 class authbags extends Controller
 {
@@ -21,13 +22,22 @@ class authbags extends Controller
         ['approved','=',1],
         ['category','=','Bags'],
         ['sold','=',null],
+        ['user_id','!=',Auth::id()]
       ];
       $get=DB::table('product')
       ->where($where)
       ->join('users','product.user_id','=','users.id')
       ->select('product.*', 'users.firstname','users.lastname','users.image')
-      ->get();
+      ->paginate(9);
       $response=[
+        'pagination'=>[
+          'total'=>$get->total(),
+          'per_page'=>$get->perPage(),
+          'current_page'=>$get->currentPage(),
+          'last_page'=>$get->lastPage(),
+          'from'=>$get->firstItem(),
+          'to'=>$get->lastItem()
+        ],
         'bags'=>$get
       ];
       return response()->json($response);

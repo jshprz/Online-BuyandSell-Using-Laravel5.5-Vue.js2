@@ -54,7 +54,7 @@
 <link rel="stylesheet" href="css/toastr.min.css" media="screen" title="no title" charset="utf-8">
 
   <script type="text/javascript" src="{{ asset('js/productsection.js') }}"></script>
-
+<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
 
     <!-- UIkit CSS -->
 

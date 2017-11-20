@@ -4,7 +4,7 @@
           <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>
                   <div class="uk-width-auto">
-                      <img class="uk-border-circle " width="40 " height="40 " :src="userimage">
+                      <img class="uk-border-circle " width="40" height="40" :src="userimage">
                   </div>
                   <div class="uk-width-expand">
                       <h3 class="uk-card-title uk-margin-remove-bottom ">{{contact}}</h3>
@@ -13,24 +13,8 @@
                   </div>
               </div>
           </div>
-          <div class="uk-card-header ">
-              <ul class="uk-subnav uk-subnav-pill" uk-switcher>
-                  <li><a href="# ">Image</a></li>
-                  <li><a href="# ">Description</a></li>
-                  <li><a href="# ">Ratings</a></li>
-              </ul>
-
-              <ul class="uk-switcher uk-margin ">
-                  <li>
-
-                      <img class="uk-align-center" :src="productimage">
-
-                      <li><h4>{{productdescription}}</h4></li>
-                      <li class="text-center">
-
-                      </li>
-              </ul>
-
+          <div class="uk-card-header">
+                      <img class="uk-align-center minimum" :src="productimage">
           </div>
           <div class="uk-card-footer">
               <a class="uk-button uk-button-text" :href="go">{{firstname}} {{lastname}}</a>

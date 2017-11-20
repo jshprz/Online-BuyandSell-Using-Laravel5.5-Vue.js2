@@ -31,7 +31,13 @@
  body{
  overflow-x: hidden;
  }
-
+  a{
+  	 text-decoration: none;
+     text-decoration-style: none;
+  }
+.minimum{
+  min-width: 150px;
+  }
   .chat-composer{
     display: flex;
   }

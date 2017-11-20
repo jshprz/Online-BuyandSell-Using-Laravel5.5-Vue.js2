@@ -59,18 +59,10 @@
                 </li>
 
                 <li class="nav-item">
-                  <span>&nbsp&nbsp</span>
+                  <span>&nbsp&nbsp </span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('all')}}" @click="currentclick('accessories')" style="color:black">ACCESSORIES</a>
-                </li>
-
-                <li class="nav-item">
-              <span>&nbsp&nbsp</span>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('all')}}" style="color:black"  @click="currentclick('bags')">BAGS</a>
+                    <a class="nav-link" href="moreitems?category=accessories" @click="currentclick('accessories')" style="color:black">ACCESSORIES</a>
                 </li>
 
                 <li class="nav-item">
@@ -78,7 +70,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('all')}}" style="color:black" @click="currentclick('menstore')">MENS STORE</a>
+                    <a class="nav-link" href="moreitems?category=bags" style="color:black"  @click="currentclick('bags')">BAGS</a>
                 </li>
 
                 <li class="nav-item">
@@ -86,7 +78,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('all')}}" style="color:black" @click="currentclick('womenstore')">WOMENS STORE</a>
+                    <a class="nav-link" href="moreitems?category=menstore" style="color:black" @click="currentclick('menstore')">MENS STORE</a>
                 </li>
 
                 <li class="nav-item">
@@ -94,7 +86,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('all')}}" style="color:black" @click="currentclick('computeraccessories')">COMPUTER ACCESSORIES</a>
+                    <a class="nav-link" href="moreitems?category=womenstore" style="color:black" @click="currentclick('womenstore')">WOMENS STORE</a>
                 </li>
 
                 <li class="nav-item">
@@ -102,7 +94,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('all')}}" style="color:black" @click="currentclick('gadgets')">GADGETS</a>
+                    <a class="nav-link" href="moreitems?category=computeraccessories" style="color:black" @click="currentclick('computeraccessories')">COMPUTER ACCESSORIES</a>
                 </li>
 
                 <li class="nav-item">
@@ -110,7 +102,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('all')}}" style="color:black" @click="currentclick('vehicle')">VEHICLE</a>
+                    <a class="nav-link" href="moreitems?category=gadgets" style="color:black" @click="currentclick('gadgets')">GADGETS</a>
                 </li>
 
                 <li class="nav-item">
@@ -118,7 +110,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('all')}}" style="color:black" @click="currentclick('vehicleaccessories')">VEHICLE ACCESSORIES</a>
+                    <a class="nav-link" href="moreitems?category=vehicle" style="color:black" @click="currentclick('vehicle')">VEHICLE</a>
+                </li>
+
+                <li class="nav-item">
+              <span>&nbsp&nbsp</span>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="moreitems?category=vehicleaccessories" style="color:black" @click="currentclick('vehicleaccessories')">VEHICLE ACCESSORIES</a>
                 </li>
 
 
@@ -151,10 +151,10 @@
             <li><a href="#">Accessories</a></li>
         </ul>
 
-<div class="uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match"  uk-grid>
-        <div class="row"  v-for="approveditem in accessories">
-<div class="col col-lg-12">
-    <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+        <div class="row">
+        <div class="col-lg-4 col-sm-6 uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match" v-for="approveditem in accessories" uk-grid>
+                            <div class="col-lg-12 uk-margin-small-bottom">
+                                <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
     <form action="currentitem" method="post">
       <input type="hidden" name="description">
       <input type="hidden" name="price">
@@ -180,10 +180,10 @@
               <li><a href="#">Bags</a></li>
           </ul>
 
-  <div class="uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match"  uk-grid>
-          <div class="row"  v-for="approveditem in bags">
-  <div class="col col-lg-12">
-    <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+          <div class="row">
+        <div class="col-lg-4 col-sm-6 uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match" v-for="approveditem in bags" uk-grid>
+                              <div class="col-lg-12 uk-margin-small-bottom">
+                                  <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
     <form action="currentitem" method="post">
       <input type="hidden" name="description">
       <input type="hidden" name="price">
@@ -207,10 +207,10 @@
                       <li><a href="#">Men Store</a></li>
                   </ul>
 
-          <div class="uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match"  uk-grid>
-                  <div class="row"  v-for="approveditem in menstore">
-          <div class="col col-lg-12">
-            <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+                  <div class="row">
+                <div class="col-lg-4 col-sm-6 uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match" v-for="approveditem in menstore" uk-grid>
+                                      <div class="col-lg-12 uk-margin-small-bottom">
+                                          <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
             <form action="currentitem" method="post">
               <input type="hidden" name="description">
               <input type="hidden" name="price">
@@ -236,10 +236,10 @@
                               <li><a href="#">Women Store</a></li>
                           </ul>
 
-                  <div class="uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match"  uk-grid>
-                          <div class="row"  v-for="approveditem in womenstore">
-                  <div class="col col-lg-12">
-                    <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+                          <div class="row">
+                        <div class="col-lg-4 col-sm-6 uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match" v-for="approveditem in womenstore" uk-grid>
+                                              <div class="col-lg-12 uk-margin-small-bottom">
+                                                  <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
                     <form action="currentitem" method="post">
                       <input type="hidden" name="description">
                       <input type="hidden" name="price">
@@ -265,10 +265,10 @@
                                       <li><a href="#">Computer Accessories</a></li>
                                   </ul>
 
-                          <div class="uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match"  uk-grid>
-                                  <div class="row"  v-for="approveditem in computeraccessories">
-                          <div class="col col-lg-12">
-                            <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+                                  <div class="row">
+                                <div class="col-lg-4 col-sm-6 uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match" v-for="approveditem in computeraccessories" uk-grid>
+                                                      <div class="col-lg-12 uk-margin-small-bottom">
+                                                          <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
                             <form action="currentitem" method="post">
                               <input type="hidden" name="description">
                               <input type="hidden" name="price">
@@ -294,10 +294,10 @@
                                               <li><a href="#">Gadgets</a></li>
                                           </ul>
 
-                                  <div class="uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match"  uk-grid>
-                                          <div class="row"  v-for="approveditem in gadgets">
-                                  <div class="col col-lg-12">
-                                    <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+                                          <div class="row">
+                                        <div class="col-lg-4 col-sm-6 uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match" v-for="approveditem in gadgets" uk-grid>
+                                                              <div class="col-lg-12 uk-margin-small-bottom">
+                                                                  <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
                                     <form action="currentitem" method="post">
                                       <input type="hidden" name="description">
                                       <input type="hidden" name="price">
@@ -323,10 +323,10 @@
                                                       <li><a href="#">Vehicle</a></li>
                                                   </ul>
 
-                                          <div class="uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match"  uk-grid>
-                                                  <div class="row"  v-for="approveditem in vehicle">
-                                          <div class="col col-lg-12">
-                                            <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+                                                  <div class="row">
+                                                <div class="col-lg-4 col-sm-6 uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match" v-for="approveditem in vehicle" uk-grid>
+                                                                      <div class="col-lg-12 uk-margin-small-bottom">
+                                                                          <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
                                             <form action="currentitem" method="post">
                                               <input type="hidden" name="description">
                                               <input type="hidden" name="price">
@@ -352,10 +352,13 @@
                                                               <li><a href="#">Vehicle Accessories</a></li>
                                                           </ul>
 
-                                                  <div class="uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match"  uk-grid>
-                                                          <div class="row"  v-for="approveditem in vehicleaccessories">
-                                                  <div class="col col-lg-12">
-                                                    <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+                                                          <div class="row">
+                                                        <div class="col-lg-4 col-sm-6 uk-child-width-expand@s  uk-margin-remove-top uk-margin-remove-left uk-grid-small  uk-grid-match" v-for="approveditem in vehicleaccessories" uk-grid>
+                                                                              <div class="col-lg-12 uk-margin-small-bottom">
+                                                                                  <listcard :go="'currentitem?description='+approveditem.product_description+'&'+'price='+approveditem.product_price+'&'+'contact='+approveditem.contact+'&'+'photo='+approveditem.product_image+'&'+'created='+approveditem.created_at+'&'+'city='+approveditem.seller_location+'&'+'firstname='+approveditem.firstname+'&'+'lastname='+approveditem.lastname" :contact="approveditem.contact" :userimage="'http://localhost:8000/storage/avatars/' + approveditem.image" :productimage="'http://localhost:8000/storage/product/' + approveditem.product_image" :productdescription="approveditem.product_description" :createdat="approveditem.created_at" :productprice="approveditem.product_price" :firstname="approveditem.firstname" :lastname="approveditem.lastname" :city="approveditem.seller_location"></listcard>
+                                                                          </div>
+                                                                      </div>
+                                                                          </div>
                                                     <form action="currentitem" method="post">
                                                       <input type="hidden" name="description">
                                                       <input type="hidden" name="price">

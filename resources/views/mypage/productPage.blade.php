@@ -14,7 +14,17 @@
 
               </li>
 
+              <div>
+                    <a class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                    <div class="uk-drop" uk-drop="mode: click; pos: right-center; offset: 0">
+                        <form class="uk-search  uk-search-navbar uk-width-1-1">
+                            <input class="uk-search-input uk-search-small" style="font-family: Segoe UI Light"type="search" placeholder="Search..." autofocus>
+                        </form>
+                    </div>
 
+
+
+                </div>
               <div>
           <div class="uk-drop" uk-drop="mode: click; pos: right-center; offset: 0">
           </div>
@@ -94,6 +104,7 @@
              <option>Gadgets</option>
              <option>Vehicle</option>
              <option>Vehicle Accessories</option>
+             <option>Others</option>
          </select>
          <br>
          <span v-show="errors.has('category')" class="uk-text-danger">@{{ errors.first('category') }}</span>

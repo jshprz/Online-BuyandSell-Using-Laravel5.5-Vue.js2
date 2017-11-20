@@ -53583,6 +53583,16 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     maingadgets: [],
     mainvehicle: [],
     mainvehicleaccessories: [],
+    mainothers: [],
+    guestaccessories: [],
+    guestbags: [],
+    guestmenstore: [],
+    guestwomenstore: [],
+    guestcomputeraccessories: [],
+    guestgadgets: [],
+    guestvehicle: [],
+    guestvehicleaccessories: [],
+    guestothers: [],
     accessories: [],
     bags: [],
     menstore: [],
@@ -53591,6 +53601,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     gadgets: [],
     vehicle: [],
     vehicleaccessories: [],
+    others: [],
     choose: 'accessories',
     pagination: {
       total: 0,
@@ -53602,6 +53613,53 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     offset: 4,
     items: [],
     currentitem: []
+  },
+
+  created: function created() {
+    this.getAccessoriesCategory();
+    this.getBagsCategory();
+    this.getMenstoreCategory();
+    this.getWomenstoreCategory();
+    this.getComputeraccessoriesCategory();
+    this.getGadgetsCategory();
+    this.getVehicleCategory();
+    this.getVehicleaccessoriesCategory();
+    this.getCurrentCategory();
+    this.getCurrentCategory();
+    this.approvedItem(this.pagination.current_page);
+    this.getOthersCategory();
+    this.getGuestAccessoriesCategory(this.pagination.current_page);
+    this.getGuestBagsCategory(this.pagination.current_page);
+    this.getGuestMenstoreCategory(this.pagination.current_page);
+    this.getGuestWomenstoreCategory(this.pagination.current_page);
+    this.getGuestComputeraccessoriesCategory(this.pagination.current_page);
+    this.getGuestGadgetsCategory(this.pagination.current_page);
+    this.getGuestVehicleCategory(this.pagination.current_page);
+    this.getGuestVehicleccessoriesCategory(this.pagination.current_page);
+    this.getGuestOthersCategory(this.pagination.current_page);
+  },
+  watch: {
+    'choose': function choose() {
+      if (this.choose == "accessories") {
+        this.maingetAccessoriesCategory(this.pagination.current_page);
+      } else if (this.choose == "bags") {
+        this.maingetBagsCategory(this.pagination.current_page);
+      } else if (this.choose == "menstore") {
+        this.maingetMenstoreCategory(this.pagination.current_page);
+      } else if (this.choose == "womenstore") {
+        this.maingetWomenstoreCategory(this.pagination.current_page);
+      } else if (this.choose == "computeraccessories") {
+        this.maingetComputeraccessoriesCategory(this.pagination.current_page);
+      } else if (this.choose == "gadgets") {
+        this.maingetGadgetsCategory(this.pagination.current_page);
+      } else if (this.choose == "vehicle") {
+        this.maingetVehicleCategory(this.pagination.current_page);
+      } else if (this.choose == "vehicleaccessories") {
+        this.maingetVehicleaccessoriesCategory(this.pagination.current_page);
+      } else {
+        this.maingetOthersCategory(this.pagination.current_page);
+      }
+    }
   },
   computed: {
     isActivated: function isActivated() {
@@ -53626,27 +53684,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
       }
       return pagesArray;
     }
-  },
-  created: function created() {
-    this.getAccessoriesCategory();
-    this.getBagsCategory();
-    this.getMenstoreCategory();
-    this.getWomenstoreCategory();
-    this.getComputeraccessoriesCategory();
-    this.getGadgetsCategory();
-    this.getVehicleCategory();
-    this.getVehicleaccessoriesCategory();
-    this.getCurrentCategory();
-    this.maingetAccessoriesCategory();
-    this.maingetBagsCategory();
-    this.maingetMenstoreCategory();
-    this.maingetWomenstoreCategory();
-    this.maingetComputeraccessoriesCategory();
-    this.maingetGadgetsCategory();
-    this.maingetVehicleCategory();
-    this.maingetVehicleaccessoriesCategory();
-    this.getCurrentCategory();
-    this.approvedItem(this.pagination.current_page);
+
   },
   methods: {
     chatnow: function chatnow(chat) {
@@ -53663,6 +53701,24 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     changePage: function changePage(page) {
       this.pagination.current_page = page;
       this.approvedItem(page);
+      this.maingetAccessoriesCategory(page);
+      this.maingetBagsCategory(page);
+      this.maingetMenstoreCategory(page);
+      this.maingetWomenstoreCategory(page);
+      this.maingetComputeraccessoriesCategory(page);
+      this.maingetGadgetsCategory(page);
+      this.maingetVehicleCategory(page);
+      this.maingetVehicleaccessoriesCategory(page);
+      this.maingetOthersCategory(page);
+      this.getGuestAccessoriesCategory(page);
+      this.getGuestBagsCategory(page);
+      this.getGuestMenstoreCategory(page);
+      this.getGuestWomenstoreCategory(page);
+      this.getGuestComputeraccessoriesCategory(page);
+      this.getGuestGadgetsCategory(page);
+      this.getGuestVehicleCategory(page);
+      this.getGuestVehicleccessoriesCategory(page);
+      this.getGuestOthersCategory(page);
     },
     approvedItem: function approvedItem(page) {
       var _this2 = this;
@@ -53677,6 +53733,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
       axios.put('/current/' + item).then(function (response) {
         _this3.getCurrentCategory();
+        console.log(_this3.item);
       });
     },
     getCurrentCategory: function getCurrentCategory() {
@@ -53691,117 +53748,211 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
       this.choose = e;
       console.log(this.choose);
     },
-    maingetAccessoriesCategory: function maingetAccessoriesCategory() {
+    maingetAccessoriesCategory: function maingetAccessoriesCategory(page) {
       var _this5 = this;
 
-      axios.get('authaccessoriesitems').then(function (response) {
-        _this5.mainaccessories = response.data.accessories;
-        console.log(_this5.accessories);
+      axios.get('authaccessoriesitems?page=' + page).then(function (response) {
+        _this5.mainaccessories = response.data.accessories.data;
+        _this5.pagination = response.data.pagination;
       });
     },
-    maingetBagsCategory: function maingetBagsCategory() {
+    maingetBagsCategory: function maingetBagsCategory(page) {
       var _this6 = this;
 
-      axios.get('authbagsitems').then(function (response) {
-        _this6.mainbags = response.data.bags;
+      axios.get('/authbagsitems?page=' + page).then(function (response) {
+        _this6.mainbags = response.data.bags.data;
+        _this6.pagination = response.data.pagination;
       });
     },
-    maingetMenstoreCategory: function maingetMenstoreCategory() {
+    maingetMenstoreCategory: function maingetMenstoreCategory(page) {
       var _this7 = this;
 
-      axios.get('authmenstoreitems').then(function (response) {
+      axios.get('authmenstoreitems?page=' + page).then(function (response) {
         _this7.mainmenstore = response.data.menstore.data;
+        _this7.pagination = response.data.pagination;
       });
     },
-    maingetWomenstoreCategory: function maingetWomenstoreCategory() {
+    maingetWomenstoreCategory: function maingetWomenstoreCategory(page) {
       var _this8 = this;
 
-      axios.get('authwomenstoreitems').then(function (response) {
-        _this8.mainwomenstore = response.data.womenstore;
+      axios.get('authwomenstoreitems?page=' + page).then(function (response) {
+        _this8.mainwomenstore = response.data.womenstore.data;
+        _this8.pagination = response.data.pagination;
       });
     },
-    maingetComputeraccessoriesCategory: function maingetComputeraccessoriesCategory() {
+    maingetComputeraccessoriesCategory: function maingetComputeraccessoriesCategory(page) {
       var _this9 = this;
 
-      axios.get('authcomputeraccessoriesitems').then(function (response) {
-        _this9.maincomputeraccessories = response.data.computeraccessories;
+      axios.get('authcomputeraccessoriesitems?page=' + page).then(function (response) {
+        _this9.maincomputeraccessories = response.data.computeraccessories.data;
+        _this9.pagination = response.data.pagination;
       });
     },
-    maingetGadgetsCategory: function maingetGadgetsCategory() {
+    maingetGadgetsCategory: function maingetGadgetsCategory(page) {
       var _this10 = this;
 
-      axios.get('authgadgetsitems').then(function (response) {
-        _this10.maingadgets = response.data.gadgets;
+      axios.get('authgadgetsitems?page=' + page).then(function (response) {
+        _this10.maingadgets = response.data.gadgets.data;
+        _this10.pagination = response.data.pagination;
       });
     },
-    maingetVehicleCategory: function maingetVehicleCategory() {
+    maingetVehicleCategory: function maingetVehicleCategory(page) {
       var _this11 = this;
 
-      axios.get('authvehicleitems').then(function (response) {
-        _this11.mainvehicle = response.data.vehicle;
+      axios.get('authvehicleitems?page=' + page).then(function (response) {
+        _this11.mainvehicle = response.data.vehicle.data;
+        _this11.pagination = response.data.pagination;
       });
     },
-    maingetVehicleaccessoriesCategory: function maingetVehicleaccessoriesCategory() {
+    maingetVehicleaccessoriesCategory: function maingetVehicleaccessoriesCategory(page) {
       var _this12 = this;
 
-      axios.get('authvehicleaccessoriesitems').then(function (response) {
-        _this12.mainvehicleaccessories = response.data.vehicleaccessories;
+      axios.get('authvehicleaccessoriesitems?page=' + page).then(function (response) {
+        _this12.mainvehicleaccessories = response.data.vehicleaccessories.data;
+        _this12.pagination = response.data.pagination;
+      });
+    },
+    maingetOthersCategory: function maingetOthersCategory(page) {
+      var _this13 = this;
+
+      axios.get('authothersitems?page=' + page).then(function (response) {
+        _this13.mainothers = response.data.others.data;
+        _this13.pagination = response.data.pagination;
       });
     },
     getAccessoriesCategory: function getAccessoriesCategory() {
-      var _this13 = this;
+      var _this14 = this;
 
       axios.get('accessoriesitems').then(function (response) {
-        _this13.accessories = response.data.approveditems.data;
+        _this14.accessories = response.data.approveditems.data;
       });
     },
     getBagsCategory: function getBagsCategory() {
-      var _this14 = this;
+      var _this15 = this;
 
       axios.get('bagsitems').then(function (response) {
-        _this14.bags = response.data.approveditems.data;
+        _this15.bags = response.data.approveditems.data;
       });
     },
     getMenstoreCategory: function getMenstoreCategory() {
-      var _this15 = this;
+      var _this16 = this;
 
       axios.get('menstoreitems').then(function (response) {
-        _this15.menstore = response.data.approveditems.data;
+        _this16.menstore = response.data.approveditems.data;
       });
     },
     getWomenstoreCategory: function getWomenstoreCategory() {
-      var _this16 = this;
+      var _this17 = this;
 
       axios.get('womenstoreitems').then(function (response) {
-        _this16.womenstore = response.data.approveditems.data;
+        _this17.womenstore = response.data.approveditems.data;
       });
     },
     getComputeraccessoriesCategory: function getComputeraccessoriesCategory() {
-      var _this17 = this;
+      var _this18 = this;
 
       axios.get('computeraccessoriesitems').then(function (response) {
-        _this17.computeraccessories = response.data.approveditems.data;
+        _this18.computeraccessories = response.data.approveditems.data;
       });
     },
     getGadgetsCategory: function getGadgetsCategory() {
-      var _this18 = this;
+      var _this19 = this;
 
       axios.get('gadgetsitems').then(function (response) {
-        _this18.gadgets = response.data.approveditems.data;
+        _this19.gadgets = response.data.approveditems.data;
       });
     },
     getVehicleCategory: function getVehicleCategory() {
-      var _this19 = this;
+      var _this20 = this;
 
       axios.get('vehicleitems').then(function (response) {
-        _this19.vehicle = response.data.approveditems.data;
+        _this20.vehicle = response.data.approveditems.data;
       });
     },
     getVehicleaccessoriesCategory: function getVehicleaccessoriesCategory() {
-      var _this20 = this;
+      var _this21 = this;
 
       axios.get('vehicleaccessoriesitems').then(function (response) {
-        _this20.vehicleaccessories = response.data.approveditems.data;
+        _this21.vehicleaccessories = response.data.approveditems.data;
+      });
+    },
+    getOthersCategory: function getOthersCategory() {
+      var _this22 = this;
+
+      axios.get('othersitems').then(function (response) {
+        _this22.others = response.data.approveditems.data;
+      });
+    },
+    getGuestAccessoriesCategory: function getGuestAccessoriesCategory(page) {
+      var _this23 = this;
+
+      axios.get('guestaccessoriesitems?page=' + page).then(function (response) {
+        _this23.guestaccessories = response.data.accessories.data;
+        _this23.pagination = response.data.pagination;
+      });
+    },
+    getGuestBagsCategory: function getGuestBagsCategory(page) {
+      var _this24 = this;
+
+      axios.get('guestbagsitems?page=' + page).then(function (response) {
+        _this24.guestbags = response.data.bags.data;
+        _this24.pagination = response.data.pagination;
+      });
+    },
+    getGuestMenstoreCategory: function getGuestMenstoreCategory(page) {
+      var _this25 = this;
+
+      axios.get('guestmenstoreitems?page=' + page).then(function (response) {
+        _this25.guestmenstore = response.data.menstore.data;
+        _this25.pagination = response.data.pagination;
+      });
+    },
+    getGuestWomenstoreCategory: function getGuestWomenstoreCategory(page) {
+      var _this26 = this;
+
+      axios.get('guestwomenstoreitems?page=' + page).then(function (response) {
+        _this26.guestwomenstore = response.data.womenstore.data;
+        _this26.pagination = response.data.pagination;
+      });
+    },
+    getGuestComputeraccessoriesCategory: function getGuestComputeraccessoriesCategory(page) {
+      var _this27 = this;
+
+      axios.get('guestcomputeraccessoriesitems?page=' + page).then(function (response) {
+        _this27.guestcomputeraccessories = response.data.computeraccessories.data;
+        _this27.pagination = response.data.pagination;
+      });
+    },
+    getGuestGadgetsCategory: function getGuestGadgetsCategory(page) {
+      var _this28 = this;
+
+      axios.get('guestgadgetsitems?page=' + page).then(function (response) {
+        _this28.guestgadgets = response.data.gadgets.data;
+        _this28.pagination = response.data.pagination;
+      });
+    },
+    getGuestVehicleCategory: function getGuestVehicleCategory(page) {
+      var _this29 = this;
+
+      axios.get('guestvehicleitems?page=' + page).then(function (response) {
+        _this29.guestvehicle = response.data.vehicle.data;
+        _this29.pagination = response.data.pagination;
+      });
+    },
+    getGuestVehicleccessoriesCategory: function getGuestVehicleccessoriesCategory(page) {
+      var _this30 = this;
+
+      axios.get('guestvehicleaccessoriesitems?page=' + page).then(function (response) {
+        _this30.guestvehicleaccessories = response.data.vehicleaccessories.data;
+        _this30.pagination = response.data.pagination;
+      });
+    },
+    getGuestOthersCategory: function getGuestOthersCategory(page) {
+      var _this31 = this;
+
+      axios.get('guestothersitems?page=' + page).then(function (response) {
+        _this31.guestothers = response.data.others.data;
+        _this31.pagination = response.data.pagination;
       });
     }
   }
@@ -53924,7 +54075,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-width-expand"
   }, [_c('h3', {
     staticClass: "uk-card-title uk-margin-remove-bottom "
-  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v("'\r\n                      "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v(" "), _c('div', {
     staticClass: "uk-card-badge uk-label uk-margin-large-left uk-margin-large-bottom"
   }, [_vm._v("Php. " + _vm._s(_vm.productprice))]), _vm._v(" "), _c('p', {
     staticClass: "uk-text-meta uk-margin-remove-top "
@@ -54101,7 +54252,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-width-expand"
   }, [_c('h3', {
     staticClass: "uk-card-title uk-margin-remove-bottom "
-  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v("'\r\n                      "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v(" "), _c('div', {
     staticClass: "uk-card-badge uk-label uk-margin-large-left uk-margin-large-bottom"
   }, [_vm._v("Php. " + _vm._s(_vm.productprice))]), _vm._v(" "), _c('p', {
     staticClass: "uk-text-meta uk-margin-remove-top "
@@ -54281,7 +54432,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-width-expand"
   }, [_c('h3', {
     staticClass: "uk-card-title uk-margin-remove-bottom "
-  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v("'\r\n                      "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v(" "), _c('div', {
     staticClass: "uk-card-badge uk-label uk-margin-large-left uk-margin-large-bottom"
   }, [_vm._v("Php. " + _vm._s(_vm.productprice))]), _vm._v(" "), _c('p', {
     staticClass: "uk-text-meta uk-margin-remove-top "
@@ -54460,7 +54611,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-width-expand"
   }, [_c('h3', {
     staticClass: "uk-card-title uk-margin-remove-bottom "
-  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v("'\r\n                      "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v(" "), _c('div', {
     staticClass: "uk-card-badge uk-label uk-margin-large-left uk-margin-large-bottom"
   }, [_vm._v("Php. " + _vm._s(_vm.productprice))]), _vm._v(" "), _c('p', {
     staticClass: "uk-text-meta uk-margin-remove-top "
@@ -54639,7 +54790,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-width-expand"
   }, [_c('h3', {
     staticClass: "uk-card-title uk-margin-remove-bottom "
-  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v("'\r\n                      "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v(" "), _c('div', {
     staticClass: "uk-card-badge uk-label uk-margin-large-left uk-margin-large-bottom"
   }, [_vm._v("Php. " + _vm._s(_vm.productprice))]), _vm._v(" "), _c('p', {
     staticClass: "uk-text-meta uk-margin-remove-top "
@@ -54818,7 +54969,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-width-expand"
   }, [_c('h3', {
     staticClass: "uk-card-title uk-margin-remove-bottom "
-  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v("'\r\n                      "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v(" "), _c('div', {
     staticClass: "uk-card-badge uk-label uk-margin-large-left uk-margin-large-bottom"
   }, [_vm._v("Php. " + _vm._s(_vm.productprice))]), _vm._v(" "), _c('p', {
     staticClass: "uk-text-meta uk-margin-remove-top "
@@ -55176,7 +55327,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "uk-width-expand"
   }, [_c('h3', {
     staticClass: "uk-card-title uk-margin-remove-bottom "
-  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v("'\r\n                      "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.contact))]), _vm._v(" "), _c('div', {
     staticClass: "uk-card-badge uk-label uk-margin-large-left uk-margin-large-bottom"
   }, [_vm._v("Php. " + _vm._s(_vm.productprice))]), _vm._v(" "), _c('p', {
     staticClass: "uk-text-meta uk-margin-remove-top "
@@ -55308,22 +55459,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['go', 'userimage', 'contact', 'productimage', 'productdescription', 'createdat', 'productprice', 'firstname', 'lastname', 'city']
@@ -55349,8 +55484,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     staticClass: "uk-border-circle ",
     attrs: {
-      "width": "40 ",
-      "height": "40 ",
+      "width": "40",
+      "height": "40",
       "src": _vm.userimage
     }
   })]), _vm._v(" "), _c('div', {
@@ -55366,17 +55501,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "datetime": "2016-04-01T19:00 "
     }
   }, [_vm._v(_vm._s(_vm.createdat))])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "uk-card-header "
-  }, [_vm._m(0), _vm._v(" "), _c('ul', {
-    staticClass: "uk-switcher uk-margin "
-  }, [_c('li', [_c('img', {
-    staticClass: "uk-align-center",
+    staticClass: "uk-card-header"
+  }, [_c('img', {
+    staticClass: "uk-align-center minimum",
     attrs: {
       "src": _vm.productimage
     }
-  })]), _c('li', [_c('h4', [_vm._v(_vm._s(_vm.productdescription))])]), _vm._v(" "), _c('li', {
-    staticClass: "text-center"
-  })])]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('div', {
     staticClass: "uk-card-footer"
   }, [_c('a', {
     staticClass: "uk-button uk-button-text",
@@ -55389,26 +55520,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "color": "black"
     }
   }, [_vm._v(_vm._s(_vm.city))])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
-    staticClass: "uk-subnav uk-subnav-pill",
-    attrs: {
-      "uk-switcher": ""
-    }
-  }, [_c('li', [_c('a', {
-    attrs: {
-      "href": "# "
-    }
-  }, [_vm._v("Image")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "# "
-    }
-  }, [_vm._v("Description")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "# "
-    }
-  }, [_vm._v("Ratings")])])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

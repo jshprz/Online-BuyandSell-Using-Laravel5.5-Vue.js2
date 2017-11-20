@@ -63,6 +63,11 @@ class GetController extends Controller
       return view('mypage.item');
 }
     }
+    public function currentCategory(Request $request)
+    {
+      $category=$request->session()->put('category',$request->category);
+      return redirect()->route('productsection');
+    }
 
     /**
      * Store a newly created resource in storage.

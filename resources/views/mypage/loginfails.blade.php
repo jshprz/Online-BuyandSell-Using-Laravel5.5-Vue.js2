@@ -2,7 +2,7 @@
 @section('content')
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container">
-        <a class="navbar-brand" href="shoppe">SHOPPEE</a>
+        <a class="navbar-brand" href="{{route('shoppe')}}">SHOPPEE</a>
         <a href="#"><button class="uk-button uk-button-secondary">Sell item now</button></a>
   </div>
 </nav>

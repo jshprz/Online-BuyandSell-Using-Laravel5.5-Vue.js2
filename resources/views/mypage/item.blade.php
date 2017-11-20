@@ -89,11 +89,6 @@
 
                     </ul>
 
-                    <ul class="uk-list uk-list-striped">
-                     <li is="individual-comment" v-for="comment in comments" @commentpost="comment"></li>
-                   </ul>
-
-                   <input v-model="newComment" @keydown.enter="addComment" placeholder="Add a comment">
 
                     <hr class="spacer-10">
                     <!-- end col -->

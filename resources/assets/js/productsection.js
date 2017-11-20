@@ -43,6 +43,16 @@ const app = new Vue({
     maingadgets:[],
     mainvehicle:[],
     mainvehicleaccessories:[],
+    mainothers:[],
+    guestaccessories:[],
+    guestbags:[],
+    guestmenstore:[],
+    guestwomenstore:[],
+    guestcomputeraccessories:[],
+    guestgadgets:[],
+    guestvehicle:[],
+    guestvehicleaccessories:[],
+    guestothers:[],
     accessories:[],
     bags:[],
     menstore:[],
@@ -51,6 +61,7 @@ const app = new Vue({
     gadgets:[],
     vehicle:[],
     vehicleaccessories:[],
+    others:[],
     choose:'accessories',
     pagination:{
       total:0,
@@ -62,6 +73,62 @@ const app = new Vue({
     offset:4,
     items:[],
     currentitem:[]
+  },
+
+  created:function(){
+  this.getAccessoriesCategory();
+  this.getBagsCategory();
+  this.getMenstoreCategory();
+  this.getWomenstoreCategory();
+  this.getComputeraccessoriesCategory();
+  this.getGadgetsCategory();
+  this.getVehicleCategory();
+  this.getVehicleaccessoriesCategory();
+  this.getCurrentCategory();
+  this.getCurrentCategory();
+  this.approvedItem(this.pagination.current_page);
+  this.getOthersCategory();
+  this.getGuestAccessoriesCategory(this.pagination.current_page);
+  this.getGuestBagsCategory(this.pagination.current_page);
+  this.getGuestMenstoreCategory(this.pagination.current_page);
+  this.getGuestWomenstoreCategory(this.pagination.current_page);
+  this.getGuestComputeraccessoriesCategory(this.pagination.current_page);
+  this.getGuestGadgetsCategory(this.pagination.current_page);
+  this.getGuestVehicleCategory(this.pagination.current_page);
+  this.getGuestVehicleccessoriesCategory(this.pagination.current_page);
+  this.getGuestOthersCategory(this.pagination.current_page);
+
+  },
+  watch:{
+    'choose':function(){
+      if (this.choose=="accessories") {
+          this.maingetAccessoriesCategory(this.pagination.current_page);
+      }
+      else if (this.choose=="bags") {
+        this.maingetBagsCategory(this.pagination.current_page);
+      }
+      else if (this.choose=="menstore") {
+        this.maingetMenstoreCategory(this.pagination.current_page);
+      }
+      else if (this.choose=="womenstore") {
+        this.maingetWomenstoreCategory(this.pagination.current_page);
+      }
+      else if (this.choose=="computeraccessories") {
+        this.maingetComputeraccessoriesCategory(this.pagination.current_page);
+      }
+      else if (this.choose=="gadgets") {
+        this.maingetGadgetsCategory(this.pagination.current_page);
+      }
+      else if (this.choose=="vehicle") {
+        this.maingetVehicleCategory(this.pagination.current_page);
+      }
+      else if (this.choose=="vehicleaccessories") {
+        this.maingetVehicleaccessoriesCategory(this.pagination.current_page);
+      }
+      else {
+        this.maingetOthersCategory(this.pagination.current_page);
+      }
+    }
   },
   computed:{
     isActivated:function(){
@@ -86,27 +153,7 @@ const app = new Vue({
       }
       return pagesArray;
     }
-  },
-  created:function(){
-  this.getAccessoriesCategory();
-  this.getBagsCategory();
-  this.getMenstoreCategory();
-  this.getWomenstoreCategory();
-  this.getComputeraccessoriesCategory();
-  this.getGadgetsCategory();
-  this.getVehicleCategory();
-  this.getVehicleaccessoriesCategory();
-  this.getCurrentCategory();
-  this.maingetAccessoriesCategory();
-  this.maingetBagsCategory();
-  this.maingetMenstoreCategory();
-  this.maingetWomenstoreCategory();
-  this.maingetComputeraccessoriesCategory();
-  this.maingetGadgetsCategory();
-  this.maingetVehicleCategory();
-  this.maingetVehicleaccessoriesCategory();
-  this.getCurrentCategory();
-  this.approvedItem(this.pagination.current_page);
+
   },
   methods:{
     chatnow:function(chat){
@@ -120,6 +167,24 @@ const app = new Vue({
     changePage:function(page){
       this.pagination.current_page=page;
       this.approvedItem(page);
+      this.maingetAccessoriesCategory(page);
+      this.maingetBagsCategory(page);
+      this.maingetMenstoreCategory(page);
+      this.maingetWomenstoreCategory(page);
+      this.maingetComputeraccessoriesCategory(page);
+      this.maingetGadgetsCategory(page);
+      this.maingetVehicleCategory(page);
+      this.maingetVehicleaccessoriesCategory(page);
+      this.maingetOthersCategory(page);
+      this.getGuestAccessoriesCategory(page);
+      this.getGuestBagsCategory(page);
+      this.getGuestMenstoreCategory(page);
+      this.getGuestWomenstoreCategory(page);
+      this.getGuestComputeraccessoriesCategory(page);
+      this.getGuestGadgetsCategory(page);
+      this.getGuestVehicleCategory(page);
+      this.getGuestVehicleccessoriesCategory(page);
+      this.getGuestOthersCategory(page);
     },
     approvedItem:function(page){
       axios.get('/approveditems?page='+page).then(response => {
@@ -130,6 +195,7 @@ const app = new Vue({
     currentclick:function(item){
       axios.put('/current/'+item).then(response=>{
         this.getCurrentCategory();
+        console.log(this.item);
       });
     },
     getCurrentCategory(){
@@ -141,51 +207,64 @@ const app = new Vue({
       this.choose=e;
       console.log(this.choose);
     },
-    maingetAccessoriesCategory:function(){
-      axios.get('authaccessoriesitems').then(response => {
-        this.mainaccessories=response.data.accessories;
-        console.log(this.accessories);
+    maingetAccessoriesCategory:function(page){
+      axios.get('authaccessoriesitems?page='+page).then(response => {
+        this.mainaccessories=response.data.accessories.data;
+        this.pagination=response.data.pagination;
+
       });
     },
-    maingetBagsCategory:function(){
-      axios.get('authbagsitems').then(response => {
-        this.mainbags=response.data.bags;
+    maingetBagsCategory:function(page){
+      axios.get('/authbagsitems?page='+page).then(response => {
+        this.mainbags=response.data.bags.data;
+        this.pagination=response.data.pagination;
       });
     },
-    maingetMenstoreCategory:function(){
-      axios.get('authmenstoreitems').then(response => {
+    maingetMenstoreCategory:function(page){
+      axios.get('authmenstoreitems?page='+page).then(response => {
         this.mainmenstore=response.data.menstore.data;
+        this.pagination=response.data.pagination;
       });
     },
-    maingetWomenstoreCategory:function(){
-      axios.get('authwomenstoreitems').then(response => {
-        this.mainwomenstore=response.data.womenstore;
+    maingetWomenstoreCategory:function(page){
+      axios.get('authwomenstoreitems?page='+page).then(response => {
+        this.mainwomenstore=response.data.womenstore.data;
+        this.pagination=response.data.pagination;
       });
     },
-    maingetComputeraccessoriesCategory:function(){
-      axios.get('authcomputeraccessoriesitems').then(response => {
-        this.maincomputeraccessories=response.data.computeraccessories;
+    maingetComputeraccessoriesCategory:function(page){
+      axios.get('authcomputeraccessoriesitems?page='+page).then(response => {
+        this.maincomputeraccessories=response.data.computeraccessories.data;
+        this.pagination=response.data.pagination;
       });
     },
-    maingetGadgetsCategory:function(){
-      axios.get('authgadgetsitems').then(response => {
-        this.maingadgets=response.data.gadgets;
+    maingetGadgetsCategory:function(page){
+      axios.get('authgadgetsitems?page='+page).then(response => {
+        this.maingadgets=response.data.gadgets.data;
+        this.pagination=response.data.pagination;
       });
     },
-    maingetVehicleCategory:function(){
-      axios.get('authvehicleitems').then(response => {
-        this.mainvehicle=response.data.vehicle;
+    maingetVehicleCategory:function(page){
+      axios.get('authvehicleitems?page='+page).then(response => {
+        this.mainvehicle=response.data.vehicle.data;
+        this.pagination=response.data.pagination;
       });
     },
-    maingetVehicleaccessoriesCategory:function(){
-      axios.get('authvehicleaccessoriesitems').then(response => {
-        this.mainvehicleaccessories=response.data.vehicleaccessories;
+    maingetVehicleaccessoriesCategory:function(page){
+      axios.get('authvehicleaccessoriesitems?page='+page).then(response => {
+        this.mainvehicleaccessories=response.data.vehicleaccessories.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    maingetOthersCategory:function(page){
+      axios.get('authothersitems?page='+page).then(response => {
+        this.mainothers=response.data.others.data;
+        this.pagination=response.data.pagination;
       });
     },
     getAccessoriesCategory:function(){
       axios.get('accessoriesitems').then(response => {
         this.accessories=response.data.approveditems.data;
-
       });
     },
     getBagsCategory:function(){
@@ -222,6 +301,65 @@ const app = new Vue({
       axios.get('vehicleaccessoriesitems').then(response => {
         this.vehicleaccessories=response.data.approveditems.data;
       });
-    }
+    },
+    getOthersCategory:function(){
+      axios.get('othersitems').then(response => {
+        this.others=response.data.approveditems.data;
+      });
+    },
+    getGuestAccessoriesCategory:function(page){
+      axios.get('guestaccessoriesitems?page='+page).then(response=>{
+        this.guestaccessories=response.data.accessories.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    getGuestBagsCategory:function(page){
+      axios.get('guestbagsitems?page='+page).then(response=>{
+        this.guestbags=response.data.bags.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    getGuestMenstoreCategory:function(page){
+      axios.get('guestmenstoreitems?page='+page).then(response=>{
+        this.guestmenstore=response.data.menstore.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    getGuestWomenstoreCategory:function(page){
+      axios.get('guestwomenstoreitems?page='+page).then(response=>{
+        this.guestwomenstore=response.data.womenstore.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    getGuestComputeraccessoriesCategory:function(page){
+      axios.get('guestcomputeraccessoriesitems?page='+page).then(response=>{
+        this.guestcomputeraccessories=response.data.computeraccessories.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    getGuestGadgetsCategory:function(page){
+      axios.get('guestgadgetsitems?page='+page).then(response=>{
+        this.guestgadgets=response.data.gadgets.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    getGuestVehicleCategory:function(page){
+      axios.get('guestvehicleitems?page='+page).then(response=>{
+        this.guestvehicle=response.data.vehicle.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    getGuestVehicleccessoriesCategory:function(page){
+      axios.get('guestvehicleaccessoriesitems?page='+page).then(response=>{
+        this.guestvehicleaccessories=response.data.vehicleaccessories.data;
+        this.pagination=response.data.pagination;
+      });
+    },
+    getGuestOthersCategory:function(page){
+      axios.get('guestothersitems?page='+page).then(response=>{
+        this.guestothers=response.data.others.data;
+        this.pagination=response.data.pagination;
+      });
+    },
   }
 });

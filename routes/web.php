@@ -31,14 +31,10 @@ Route::group(['middleware'=>['guest']],function(){
     return view('mypage.productPage');
   })->name('product');
 });
-Route::get('/allitems',function (){
-  return view('mypage.main');
-})->name('all');
+
 
 Route::group(['middleware'=>['guest']],function(){
-  Route::get('/shoppe',function(){
-    return view('mypage.index');
-  })->name('shoppe');
+  Route::get('/shoppe','Auth\LoginController@forget')->name('shoppe');
   Route::get('/login','LoginfailController@loginfail')->name('loginfail');
   Route::resource('shoppeitems','LoginfailController');
   Route::get('/item',function(){
@@ -58,6 +54,18 @@ Route::resource('authcomputeraccessoriesitems','authcomputeraccessories');
 Route::resource('authgadgetsitems','authgadgets');
 Route::resource('authvehicleitems','authvehicle');
 Route::resource('authvehicleaccessoriesitems','authvehicleaccessories');
+Route::resource('authothersitems','authothers');
+
+Route::resource('guestaccessoriesitems','guestaccessories');
+Route::resource('guestbagsitems','guestbags');
+Route::resource('guestmenstoreitems','guestmenstore');
+Route::resource('guestwomenstoreitems','guestwomenstore');
+Route::resource('guestcomputeraccessoriesitems','guestcomputeraccessories');
+Route::resource('guestgadgetsitems','guestgadgets');
+Route::resource('guestvehicleitems','guestvehicle');
+Route::resource('guestvehicleaccessoriesitems','guestvehicleaccessories');
+Route::resource('guestothersitems','guestothers');
+
 Route::get('currentitem','GetController@create');
 Route::group(['middleware'=>['auth']],function(){
 Route::get('/home','UploadImageController@uploadReturn')->name('dashboard');
@@ -97,7 +105,7 @@ Route::resource('computeraccessoriesitems','ComputeraccessoriesController');
 Route::resource('gadgetsitems','GadgetsController');
 Route::resource('vehicleitems','VehicleController');
 Route::resource('vehicleaccessoriesitems','VehicleaccessoriesController');
-
+Route::resource('othersitems','OthersController');
 
 Route::get('/error',function(){
   return view('errors.Pagenotfound');
